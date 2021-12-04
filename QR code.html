@@ -4,12 +4,13 @@
 		<meta charset="utf-8">
 		<title></title>
 		<style type="text/css">
-			*{
+			* {
 				margin: 0;
 				padding: 0;
 				box-sizing: border-box;
 			}
-			div{
+
+			div {
 				width: 200px;
 				height: 200px;
 				background: url(resouce/06.jpg);
@@ -19,7 +20,8 @@
 				position: absolute;
 				left: -200px;
 			}
-			span{
+
+			span {
 				background: #FFA500;
 				color: #fff;
 				font-size: 15px;
@@ -35,33 +37,29 @@
 	</head>
 	<body>
 		<div><span>A P P下载</span></div>
-	
+
 		<script type="text/javascript">
-			let $=document.querySelectorAll.bind(document);
+			let $ = document.querySelectorAll.bind(document);
 			// null 为空值，赋初值都可，因为默认就是 null
-			let timerA=null;
-			
-			$('div')[0].onmouseover=function(){
-				// 开启一个定时器之前，清空所有定时器
+			let timerA = null;
+
+			function move(target, speed) {
 				clearInterval(timerA);
-				timerA=setInterval(function(){
-					if($('div')[0].offsetLeft<0){
-						$('div')[0].style.left=$('div')[0].offsetLeft +5 + 'px';
-					}else{
+				timerA = setInterval(function() {
+					if ($('div')[0].offsetLeft == target) {
 						clearInterval(timerA);
+					} else {
+						$('div')[0].style.left = $('div')[0].offsetLeft + speed + 'px';
 					}
-				},20)
+				}, 30)
 			}
-			$('div')[0].onmouseout=function(){
-				// 开启一个定时器之前，清空所有定时器
-				clearInterval(timerA);
-				timerA=setInterval(function(){
-					if($('div')[0].offsetLeft>-200){
-						$('div')[0].style.left=$('div')[0].offsetLeft -5 + 'px';
-					}else{
-						clearInterval(timerA);
-					}
-				},20)
+
+			$('div')[0].onmouseover = function() {
+				// 这里有一个问题，当 speed 为 3 时，无法除尽，与速度有关 ，200/3 除不尽
+				move(0,5);
+			}
+			$('div')[0].onmouseout = function() {
+				move(-200,-5);
 			}
 		</script>
 	</body>
